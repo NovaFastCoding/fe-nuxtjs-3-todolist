@@ -11,6 +11,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue';
+import { Apis } from '../../constants';
 
 interface Todo {
 	nameTodo: string;
@@ -38,7 +39,7 @@ export default defineComponent({
 				};
 
 				axios
-					.post('http://localhost:5000/api/todo/create', newTodo)
+					.post(Apis.todo.create, newTodo)
 					.then((res) => {
 						console.log(res);
 						this.newTodo = {
