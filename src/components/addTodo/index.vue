@@ -1,42 +1,54 @@
 <template>
 	<div class="addTodo">
 		<div class="nameTodo">
-			<input type="text" v-model="newTodo.name" placeholder="Your todo..." />
+			<input type="text" v-model="newTodo.nameTodo" placeholder="Your todo..." />
 		</div>
-		<input type="date" v-model="newTodo.deadline" />
+		<input type="date" v-model="newTodo.deadlineTodo" />
 		<button @click="addNewTodo">+</button>
 	</div>
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue';
+
+interface Todo {
+	nameTodo: string;
+	deadlineTodo: string;
+	isCompleted?: boolean;
+}
 
 export default defineComponent({
 	name: 'addTodo',
 	data() {
 		return {
 			newTodo: {
-				name: '',
-				deadline: '',
-			},
+				nameTodo: '',
+				deadlineTodo: '',
+			} as Todo,
 		};
 	},
 	methods: {
-		addNewTodo() {
-			if (this.newTodo.name && this.newTodo.deadline) {
-				const newTodo = {
-					id: Date.now(),
-					name: this.newTodo.name,
-					deadline: this.newTodo.deadline,
+		addNewTodo(): void {
+			if (this.newTodo.nameTodo && this.newTodo.deadlineTodo) {
+				const newTodo: Todo = {
+					nameTodo: this.newTodo.nameTodo,
+					deadlineTodo: this.newTodo.deadlineTodo,
 					isCompleted: false,
 				};
 
-				console.log(newTodo);
-
-				this.newTodo = {
-					name: '',
-					deadline: '',
-				};
+				axios
+					.post('http://localhost:5000/api/todo/create', newTodo)
+					.then((res) => {
+						console.log(res);
+						this.newTodo = {
+							nameTodo: '',
+							deadlineTodo: '',
+						};
+					})
+					.catch((error: any) => {
+						console.error(error);
+					});
 			}
 		},
 	},
