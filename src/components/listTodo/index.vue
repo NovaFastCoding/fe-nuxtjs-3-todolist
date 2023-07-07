@@ -11,7 +11,22 @@
 					:key="todo.id"
 					:class="todo.isCompleted ? 'itemTodo completedTodo' : 'itemTodo'"
 				>
-					{{ index }}
+					<div class="infoTodo">
+						<div class="iconCheck">
+							<RiCheckLine class="RiCheckLine" />
+						</div>
+						<div class="valuesTodo">
+							<h3 :title="formatOrdinalNumbers(index) + symbols.dot + ' ' + todo.nameTodo">
+								{{ formatOrdinalNumbers(index) + symbols.dot + ' ' + todo.nameTodo }}
+							</h3>
+							<p class="deadlineTodo">
+								{{ textInTag.deadline + symbols.colon }} <span>{{ ' ' + todo.deadlineTodo }}</span>
+							</p>
+						</div>
+					</div>
+					<div class="actions">
+						<RiDeleteBinLine name="ri-delete-bin-line" class="riDeleteBinLine" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -23,9 +38,14 @@ import { defineComponent, ref } from 'vue';
 import { PathImages, Text, Numbers, WarningToastOptions, ToastOptions, SuccessfulMessages } from '../../constants';
 import axios from 'axios';
 import { Apis } from '../../constants';
+import { RiCheckLine, RiDeleteBinLine } from 'vue-remix-icons';
 
 export default defineComponent({
 	name: 'listTodo',
+	components: {
+		RiCheckLine,
+		RiDeleteBinLine,
+	},
 	data() {
 		return {
 			pathImages: {
@@ -59,6 +79,11 @@ export default defineComponent({
 		getAllTodos();
 
 		return { sortedFilteredTodos };
+	},
+	methods: {
+		formatOrdinalNumbers(index: number) {
+			return index + 1;
+		},
 	},
 });
 </script>

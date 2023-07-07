@@ -62,13 +62,15 @@
 
 					& .actions {
 						& .riDeleteBinLine {
-							color: var(--white-color);
+							fill: var(--white-color);
 						}
 					}
 
 					& .infoTodo {
-						& .mdDownloaddoneRound {
-							color: var(--tick-completed-todo);
+						& .iconCheck {
+							& .RiCheckLine {
+								fill: var(--tick-completed-todo);
+							}
 						}
 
 						& .valuesTodo {
@@ -96,7 +98,7 @@
 
 					& .riDeleteBinLine {
 						scale: var(--scale-delete-icon);
-						color: var(--delete-icon-color);
+						fill: var(--delete-icon-color);
 						opacity: var(--default-decreased-opacity);
 
 						&:hover {
@@ -113,14 +115,22 @@
 					gap: var(--distance-margin-to-next-item);
 					width: calc(100% - var(--default-height));
 
-					& .mdDownloaddoneRound {
-						scale: var(--scale-tick-icon);
-						color: var(--text-color);
-						opacity: var(--default-decreased-opacity);
+					& .iconCheck {
+						width: var(--default-height);
+						height: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: flex-start;
 
-						&:hover {
-							cursor: pointer;
-							opacity: var(--default-opacity);
+						& .RiCheckLine {
+							scale: var(--scale-tick-icon);
+							fill: var(--text-color);
+							opacity: var(--default-decreased-opacity);
+
+							&:hover {
+								cursor: pointer;
+								opacity: var(--default-opacity);
+							}
 						}
 					}
 
